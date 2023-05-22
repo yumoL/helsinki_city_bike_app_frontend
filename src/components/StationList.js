@@ -1,37 +1,59 @@
 import React, { useEffect, useState } from "react"
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import Pagination from '@mui/material/Pagination'
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableCell from "@mui/material/TableCell"
+import TableContainer from "@mui/material/TableContainer"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
+import Paper from "@mui/material/Paper"
+import Pagination from "@mui/material/Pagination"
 
+import SearchBar from "./SearchBar"
 import stationService from "../services/station"
+import { useDebounce } from "../hooks/useDebounce"
+
 
 const StationList = () => {
   const [stations, setStations] = useState([])
   const [pageCount, setPageCount] = useState(1)
+  const [keyword, setKeyword] = useState("")
   const pageSize = 10
+  const debouncedKeyword = useDebounce(keyword)
 
   useEffect(() => {
     const fetchStationList = async () => {
-      const res = await stationService.getStationList(0)
+      const res = await stationService.getStationList(debouncedKeyword, 0)
       setStations(res.stationList)
       setPageCount(Math.floor(res.count / pageSize))
     }
     fetchStationList()
   }, [])
 
-  const handleChangePage = async(event, newPage) => {
-    const res = await stationService.getStationList(newPage)
+  useEffect(() => {
+    if (debouncedKeyword || debouncedKeyword === "") {
+      const fetchStationListBykeyword = async () => {
+        const res = await stationService.getStationList(debouncedKeyword, 0)
+        setStations(res.stationList)
+        setPageCount(Math.floor(res.count / pageSize))
+      }
+      fetchStationListBykeyword()
+    }
+  }, [debouncedKeyword])
+
+  const handleChangePage = async (event, newPage) => {
+    console.log("new page", newPage)
+    const res = await stationService.getStationList(debouncedKeyword, newPage-1)
     setStations(res.stationList)
+  }
+
+  const handleKeywordChange = (event) => {
+    setKeyword(event.target.value)
   }
 
 
   return (
     <div style={{ margin: "20px" }}>
+      <SearchBar handleInputChange={handleKeywordChange} />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -46,7 +68,7 @@ const StationList = () => {
             {stations.map((station) => (
               <TableRow
                 key={station.sid}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
                   {station.sid}
@@ -60,10 +82,10 @@ const StationList = () => {
         </Table>
       </TableContainer>
 
-      <Pagination 
-        style={{ marginTop: "15px" }} 
-        count={pageCount} 
-        color="primary" 
+      <Pagination
+        style={{ marginTop: "15px" }}
+        count={pageCount}
+        color="primary"
         onChange={handleChangePage}
       />
     </div>

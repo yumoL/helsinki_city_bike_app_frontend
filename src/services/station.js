@@ -7,8 +7,16 @@ const uploadStationFile = async formData => {
   return res.data
 }
 
-const getStationList = async (pageIndex = 0) => {
-  const res = await axios.get(`${baseUrl}/all/${pageIndex}`)
+const getStationList = async (keyword, pageIndex = 0) => {
+  let params = {}
+  if (keyword && keyword.length > 0) {
+    params = {
+      keyword
+    }
+  }
+  const res = await axios.get(`${baseUrl}/all/${pageIndex}`, {
+    params
+  })
   return res.data.data
 }
 export default {
