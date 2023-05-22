@@ -38,6 +38,7 @@ const StationList = () => {
       }
       fetchStationListBykeyword()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedKeyword])
 
   const handleChangePage = async (event, newPage) => {
