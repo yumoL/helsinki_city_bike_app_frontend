@@ -25,7 +25,7 @@ const StationList = () => {
     const fetchStationList = async () => {
       const res = await stationService.getStationList(debouncedKeyword, 0)
       setStations(res.stationList)
-      setPageCount(Math.floor(res.count / pageSize))
+      setPageCount(Math.ceil(res.count / pageSize))
     }
     fetchStationList()
   }, [])
@@ -35,7 +35,7 @@ const StationList = () => {
       const fetchStationListBykeyword = async () => {
         const res = await stationService.getStationList(debouncedKeyword, 0)
         setStations(res.stationList)
-        setPageCount(Math.floor(res.count / pageSize))
+        setPageCount(Math.ceil(res.count / pageSize))
       }
       fetchStationListBykeyword()
     }
