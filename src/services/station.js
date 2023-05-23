@@ -19,7 +19,20 @@ const getStationList = async (keyword, pageIndex = 0) => {
   })
   return res.data.data
 }
+
+const getSingleStation = async(sid, month = 0) => {
+  let params = {}
+  if (month) {
+    params = {
+      month
+    }
+  }
+  const res = await axios.get(`${baseUrl}/${sid}`, { params })
+  return res.data.data
+}
+
 export default {
   uploadStationFile,
-  getStationList
+  getStationList,
+  getSingleStation
 }

@@ -4,6 +4,7 @@ import "./App.css"
 import Header from "./components/Header"
 import FrontPage from "./components/FrontPage"
 import StationList from "./components/StationList"
+import SingleStation from "./components/SingleStation"
 import JourneyList from "./components/JourneyList"
 import DataUploader from "./components/DataUploader"
 import Footer from "./components/Footer"
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<FrontPage />} />
           <Route path="/stations" element={<StationList />} />
+          <Route path="/station/:sid" element={<SingleStation />} />
           <Route path="/journeys" element={<JourneyList />} />
           <Route path="/upload" element={<DataUploader />} />
         </Routes>

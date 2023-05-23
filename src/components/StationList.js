@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -72,7 +73,9 @@ const StationList = () => {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {station.sid}
+                  <Link to={`/station/${station.sid}`}>
+                    {station.sid}
+                  </Link>
                 </TableCell>
                 <TableCell align="right">{station.name}</TableCell>
                 <TableCell align="right">{station.address}</TableCell>
