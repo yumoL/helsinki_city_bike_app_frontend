@@ -27,7 +27,7 @@ const getSingleStation = async(sid, month = 0) => {
       month
     }
   }
-  const res = await axios.get(`${baseUrl}/${sid}`, { params })
+  const res = await axios.get(`${baseUrl}/single/${sid}`, { params })
   return res.data.data
 }
 
