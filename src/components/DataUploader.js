@@ -1,11 +1,10 @@
 import React, { useState } from "react"
 import Button from "@mui/material/Button"
-import Backdrop from "@mui/material/Backdrop"
-import CircularProgress from "@mui/material/CircularProgress"
 import MuiAlert from "@mui/material/Alert"
 import Snackbar from "@mui/material/Snackbar"
 import stationService from "../services/station"
 import journeyService from "../services/journey"
+import ProgressCircular from "./ProgressCircular"
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -46,13 +45,14 @@ const DataUploader = () => {
         Upload Journeys
         <input type="file" accept=".csv" hidden onChange={handleFileChange(JOURNEY_TYPE)} />
       </Button>
+      <ProgressCircular loading={loading}/>
 
-      <Backdrop
+      {/* <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading}
       >
         <CircularProgress color="inherit" />
-      </Backdrop>
+      </Backdrop> */}
 
       <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={alertOpen} autoHideDuration={6000} onClose={handleAlertClose}>
         <Alert onClose={handleAlertClose} severity="success" sx={{ width: "60%" }}>
