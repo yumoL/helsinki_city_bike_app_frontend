@@ -18,14 +18,13 @@ const StationList = () => {
   const [stations, setStations] = useState([])
   const [pageCount, setPageCount] = useState(1)
   const [keyword, setKeyword] = useState("")
-  const pageSize = 10
   const debouncedKeyword = useDebounce(keyword)
 
   useEffect(() => {
     const fetchStationList = async () => {
       const res = await stationService.getStationList(debouncedKeyword, 0)
       setStations(res.stationList)
-      setPageCount(Math.ceil(res.count / pageSize))
+      setPageCount(Math.ceil(res.count / res.pageSize))
     }
     fetchStationList()
   }, [])
@@ -35,7 +34,7 @@ const StationList = () => {
       const fetchStationListBykeyword = async () => {
         const res = await stationService.getStationList(debouncedKeyword, 0)
         setStations(res.stationList)
-        setPageCount(Math.ceil(res.count / pageSize))
+        setPageCount(Math.ceil(res.count / res.pageSize))
       }
       fetchStationListBykeyword()
     }
