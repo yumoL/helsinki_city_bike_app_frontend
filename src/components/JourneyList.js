@@ -377,7 +377,6 @@ FilterInput.propTypes = {
   max: PropTypes.number.isRequired,
   valueRange: PropTypes.array.isRequired,
   setValueRangeFunc: PropTypes.func.isRequired,
-  //minError: PropTypes.number.isRequired
 }
 
 FilterSelection.propTypes = {

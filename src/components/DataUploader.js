@@ -28,7 +28,6 @@ const DataUploader = () => {
     }
     setLoading(false)
     setAlertOpen(true)
-    //setNotification("Your file has been successfully uploaded.")
   }
 
   const handleAlertClose = () => {
@@ -46,13 +45,6 @@ const DataUploader = () => {
         <input type="file" accept=".csv" hidden onChange={handleFileChange(JOURNEY_TYPE)} />
       </Button>
       <ProgressCircular loading={loading}/>
-
-      {/* <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop> */}
 
       <Snackbar anchorOrigin={{ vertical: "top", horizontal: "center" }} open={alertOpen} autoHideDuration={6000} onClose={handleAlertClose}>
         <Alert onClose={handleAlertClose} severity="success" sx={{ width: "60%" }}>

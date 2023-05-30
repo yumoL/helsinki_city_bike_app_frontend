@@ -49,10 +49,6 @@ const Header = () => {
                 to="/upload">
                 Upload Data
               </Link>
-              {/* <Button component={Link} to="/upload">
-                Upload Data
-              </Button> */}
-
             </Typography>
           </Toolbar>
         </AppBar>
